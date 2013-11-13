@@ -31,28 +31,17 @@ end
  
 def new_session
   distractions = 0
-    puts "What would you like to do (add track(s) or review tracks)?"
-    request = gets.chomp.downcase
-    case request
-    when "add track"
-      distractions += 1
-      puts "You have #{distractions} tracks in this session."
-    when "add tracks"
-      puts "How many times have you been distracted since we last met?"
-      distractions += gets.chomp.to_i
-      puts "You have #{distractions} tracks."
-    when "review tracks"
-      puts distractions
-    end
-
-    puts "Would you like to continue this session?"
+  puts "How many times have you been distracted in this session?"
+  distractions += gets.chomp.to_i
+  puts "You have #{distractions} tracks."
+  puts "Would you like to continue this session?"
+  continue = gets.chomp.downcase
+  while continue == "yes" do
+    puts "How many tracks would you like to add?"
+    distractions += gets.chomp.to_i
+    puts "You now have #{distractions} distractions. Would you like to continue?"
     continue = gets.chomp.downcase
-    while continue == "yes" do
-      puts "How many tracks would you like to add?"
-      distractions += gets.chomp.to_i
-      puts "You now have #{distractions} distractions. Would you like to continue?"
-      continue = gets.chomp.downcase
-    end
+  end
 
   pretty_time = Time.now.strftime('%Y-%m-%d-%H%M%S')
  
