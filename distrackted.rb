@@ -14,7 +14,11 @@ def first_question
       puts "Which session would you like to review (select the id)?"
       rev_session = gets.chomp.to_i
       rev_session = rev_session - 1
-      
+      sessions = Dir.entries("./tracks")
+      3.times { sessions.delete_at(0) }
+      rev_session = sessions [rev_session]
+      distractions = File.read ("./tracks/#{rev_session}")
+      puts "You had #{distractions} distractions in that session"
       #GET AND REVIEW PREVIOUS SESSIONS
     elsif prev_session == "no"
       puts "Well if you don't want a new session, and you don't want to review your old sessions, then you're SOL."
@@ -59,7 +63,7 @@ end
 
 def list_all_tracks
   sessions = Dir.entries("./tracks")
-  2.times { sessions.delete_at(0) }
+  3.times { sessions.delete_at(0) }
   sessions.each_with_index do |session, index|
     puts "#{index+1}. #{session}"
   end
