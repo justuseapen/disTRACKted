@@ -29,6 +29,7 @@ def first_question
 end
  
 def new_session
+  session_name = name_session
   distractions = 0
   puts "How many times have you been distracted in this session?"
   distractions += gets.chomp.to_i
@@ -44,7 +45,7 @@ def new_session
 
   pretty_time = Time.now.strftime('%Y-%m-%d-%H%M%S')
  
-  File.open("./tracks/session-#{pretty_time}.track", 'w') do |file|
+  File.open("./tracks/#{session_name}.track", 'w') do |file|
     file.write(distractions)
   end
 end
@@ -55,10 +56,17 @@ def find_tracks
     file.match(/\A[^\.]/)
   end
 end
+
 def list_tracks
   find_tracks.each_with_index do |session, index|
     puts "#{index+1}. #{session}"
   end
 end
- 
+
+def name_session
+  puts "What would you like to name this session?"
+  session_name = gets.chomp
+end
+
+
 first_question
